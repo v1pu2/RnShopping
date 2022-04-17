@@ -3,21 +3,31 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import Input from '../components/Input';
 import LinearButton from '../components/LinearButton';
+import {useDispatch} from 'react-redux';
+import { logIn } from '../redux/actions/ActionAuth';
 
-const Login = () => {
+const Login = props => {
   const [phone, setPhone] = useState('');
+  const dispatch = useDispatch();
 
   const onChange = val => {
-    console.log('on change');
     setPhone(val);
   };
 
+  const onLogin = () => {
+    var val = Math.floor(1000 + Math.random() * 9000);
+    console.log('login click',val);
+    const otpObj={otp:val}
+    console.log(otpObj);
+    dispatch(logIn(otpObj));
+    props.navigation.navigate('Verify');
+  };
   return (
     <View style={styles.root}>
       <Text style={styles.txtLogin}>Login</Text>
       <Text style={styles.txtPhone}>Phone</Text>
-      <Input value={phone} onChangeText={() => onChange()} length={10} />
-      <LinearButton title="Login" />
+      <Input value={phone} onChangeText={(val) => onChange(val)} length={10} />
+      <LinearButton title="Login" onPress={() => onLogin()} />
     </View>
   );
 };
@@ -41,5 +51,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 30,
   },
-  
 });

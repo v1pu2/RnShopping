@@ -22,5 +22,6 @@ var styles = StyleSheet.create({
     borderBottomColor: '#E2E2E2',
     borderBottomWidth: 1,
     marginVertical: 20,
+    color:'black'
   },
 });
