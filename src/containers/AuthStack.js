@@ -11,7 +11,7 @@ export const AuthStack = () => {
     <Stack.Navigator
       initialRouteName="Login"
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
       }}>
       <Stack.Screen
         name="Welcome"
