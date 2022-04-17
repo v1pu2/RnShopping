@@ -1,21 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View, StyleSheet, TextInput} from 'react-native';
+import Input from '../components/Input';
+import LinearButton from '../components/LinearButton';
 
 const Login = () => {
+  const [phone, setPhone] = useState('');
+
+  const onChange = val => {
+    console.log('on change');
+    setPhone(val);
+  };
+
   return (
     <View style={styles.root}>
-      <Text style={{color:'black'}}>this is app login</Text>
+      <Text style={styles.txtLogin}>Login</Text>
+      <Text style={styles.txtPhone}>Phone</Text>
+      <Input value={phone} onChangeText={() => onChange()} length={10} />
+      <LinearButton title="Login" />
     </View>
   );
 };
 
+export default Login;
+
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems:'center'
+    backgroundColor: 'white',
+    padding: 20,
+    paddingTop: 70,
   },
-});
 
-export default Login;
+  txtLogin: {
+    color: '#323232',
+    fontSize: 30,
+  },
+  txtPhone: {
+    color: '#A6A6A6',
+    fontSize: 14,
+    marginTop: 30,
+  },
+  
+});

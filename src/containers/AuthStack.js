@@ -3,8 +3,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 
-
-
 const Stack = createStackNavigator();
 
 export const AuthStack = () => {
@@ -15,15 +13,11 @@ export const AuthStack = () => {
         headerShown: false,
       }}>
       <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{title: 'Login'}}
-      />
-      <Stack.Screen
         name="Welcome"
         component={Welcome}
-        options={{title: 'Register'}}
+        options={{title: 'Welcome'}}
       />
+      <Stack.Screen name="Login" component={Login} options={{title: 'Login'}} />
     </Stack.Navigator>
   );
 };
