@@ -4,20 +4,28 @@ import {Text, View, StyleSheet, TextInput} from 'react-native';
 import Input from '../components/Input';
 import LinearButton from '../components/LinearButton';
 
-const Verify = () => {
+const Verify = props => {
   const [otp, setOtp] = useState('');
 
   const onChange = val => {
     console.log('on change');
     setOtp(val);
   };
-
+  const onVerify = () => {
+    console.log('on verify');
+    
+  };
   return (
     <View style={styles.root}>
       <Text style={styles.txtLogin}>Verify</Text>
       <Text style={styles.txtPhone}>OTP</Text>
-      <Input value={otp} onChangeText={() => onChange()} length={4} placeholder="Enter OTP"/>
-      <LinearButton title="Verify" />
+      <Input
+        value={otp}
+        onChangeText={() => onChange()}
+        length={4}
+        placeholder="Enter OTP"
+      />
+      <LinearButton title="Verify" onPress={() => onVerify()} />
     </View>
   );
 };
@@ -40,5 +48,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 30,
   },
-  
 });
