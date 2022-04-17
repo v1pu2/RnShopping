@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
 import {Text, View, StyleSheet, TextInput} from 'react-native';
-import Input from '../component/Input';
-import LinearButton from '../component/LinearButton';
+import Input from '../components/Input';
+import LinearButton from '../components/LinearButton';
 
 const Verify = () => {
   const [otp, setOtp] = useState('');

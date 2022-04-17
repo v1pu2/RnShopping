@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
+import Verify from '../screens/Verify';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export const AuthStack = () => {
         options={{title: 'Welcome'}}
       />
       <Stack.Screen name="Login" component={Login} options={{title: 'Login'}} />
+      <Stack.Screen name="Verify" component={Verify} options={{title: 'Verify'}} />
     </Stack.Navigator>
   );
 };
