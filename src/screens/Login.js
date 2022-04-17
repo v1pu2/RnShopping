@@ -4,7 +4,7 @@ import {Text, View, StyleSheet, TextInput} from 'react-native';
 import Input from '../components/Input';
 import LinearButton from '../components/LinearButton';
 
-const Login = () => {
+const Login = props => {
   const [phone, setPhone] = useState('');
 
   const onChange = val => {
@@ -12,12 +12,16 @@ const Login = () => {
     setPhone(val);
   };
 
+  const onLogin = () => {
+    console.log('login click');
+    props.navigation.navigate('Verify');
+  };
   return (
     <View style={styles.root}>
       <Text style={styles.txtLogin}>Login</Text>
       <Text style={styles.txtPhone}>Phone</Text>
       <Input value={phone} onChangeText={() => onChange()} length={10} />
-      <LinearButton title="Login" />
+      <LinearButton title="Login" onPress={() => onLogin()} />
     </View>
   );
 };
@@ -41,5 +45,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 30,
   },
-  
 });
