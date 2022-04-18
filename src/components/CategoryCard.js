@@ -19,7 +19,7 @@ const CategoryCard = props => {
 };
 
 export default CategoryCard;
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   cardView: {
     width: 200,
     flex: 1,
@@ -40,6 +40,6 @@ var styles = StyleSheet.create({
   txtGen: {
     fontSize: 18,
     color: 'white',
-    style: 'bold',
+    fontWeight: 'bold',
   },
 });
