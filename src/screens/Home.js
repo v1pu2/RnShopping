@@ -3,6 +3,9 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, FlatList, ScrollView} from 'react-native';
 import CategoryCard from '../components/CategoryCard';
 import ProductCard from '../components/ProductCard';
+import {useSelector, useDispatch} from 'react-redux';
+import {addToCart} from '../redux/actions/ActionCart';
+import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 const shoppingList = {
   categories: [
@@ -76,11 +79,13 @@ const shoppingList = {
   ],
 };
 
-const Home = () => {
+const Home = props => {
   const [data, setData] = useState(shoppingList);
   const [categoryData, setCategoryData] = useState({});
   const [featured, setFeatured] = useState([]);
   const [bestSell, setBestSell] = useState([]);
+  const dispatch = useDispatch();
+  const cartData = useSelector(state => state?.CartReducer?.cart);
 
   useEffect(() => {
     // console.log('shopping list', JSON.stringify(data?.categories));
@@ -97,7 +102,18 @@ const Home = () => {
       <ProductCard
         catData={item?.item}
         onPress={() => {
-          console.log('add to card');
+          const isFind = cartData.filter(
+            obj => obj?.item?.id == item?.item?.id,
+          );
+          console.log(isFind);
+          if (isFind?.length === 0) {
+            const cartItem = {item: item?.item, qty: 1};
+            console.log('add to card', cartItem);
+             dispatch(addToCart(cartItem));
+          } else {
+            console.log('cartData in home', cartData);
+          }
+         
         }}
       />
     );
@@ -114,7 +130,19 @@ const Home = () => {
   return (
     <View style={styles.root}>
       <ScrollView>
-        <Text style={styles.txtHeader}>Categories</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginRight: 20,
+          }}>
+          <Text style={styles.txtHeader}>Categories</Text>
+          <Text
+            style={styles.txtHeader}
+            onPress={() => props.navigation.navigate('Checkout')}>
+            Cart
+          </Text>
+        </View>
         <FlatList
           horizontal
           data={categoryData}
