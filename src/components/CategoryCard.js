@@ -1,11 +1,19 @@
 import React from 'react';
 
-import {TextInput, View, Text, StyleSheet} from 'react-native';
+import {ImageBackground, View, Text, StyleSheet} from 'react-native';
 
-const CategoryCard = ({catData}) => {
+const CategoryCard = props => {
+  const prod_img = props?.catData?.img;
   return (
     <View style={styles.cardView}>
-      <Text>{catData?.gender}</Text>
+      <ImageBackground
+        source={{
+          uri: prod_img,
+        }}
+        borderRadius={10}
+        style={styles.img}>
+        <Text style={styles.txtGen}>{props?.catData?.gender}</Text>
+      </ImageBackground>
     </View>
   );
 };
@@ -13,12 +21,25 @@ const CategoryCard = ({catData}) => {
 export default CategoryCard;
 var styles = StyleSheet.create({
   cardView: {
-    backgroundColor: 'yellow',
     width: 200,
-    padding: 50,
+    flex: 1,
     borderRadius: 20,
     margin: 15,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  img: {
+    height: 120,
+    width: 200,
+    borderRadius: 10,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0.5,
+  },
+  txtGen: {
+    fontSize: 18,
+    color: 'white',
+    style: 'bold',
   },
 });
