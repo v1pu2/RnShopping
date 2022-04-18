@@ -6,9 +6,21 @@ import ProductCard from '../components/ProductCard';
 
 const shoppingList = {
   categories: [
-    {id: 1, gender: 'Woman'},
-    {id: 2, gender: 'Man'},
-    {id: 3, gender: 'Kids'},
+    {
+      id: 1,
+      gender: 'Woman',
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdAbXKJYacGxuMdyJqYTrzJRpw1rleBAjzRw&usqp=CAU',
+    },
+    {
+      id: 2,
+      gender: 'Man',
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWn13vWetld7Tpu8bjhqTwal8xHi_d-2AoTg&usqp=CAU',
+    },
+    {
+      id: 3,
+      gender: 'Kids',
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB_H4QRrEfeHh5HKYSoQoerH3I0-t40yhRPg&usqp=CAU',
+    },
   ],
   featured: [
     {
@@ -71,7 +83,7 @@ const Home = () => {
   const [bestSell, setBestSell] = useState([]);
 
   useEffect(() => {
-    console.log('shopping list', JSON.stringify(data?.categories));
+    // console.log('shopping list', JSON.stringify(data?.categories));
     setCategoryData(data?.categories);
     setFeatured(data?.featured);
     setBestSell(data?.bestSell);
