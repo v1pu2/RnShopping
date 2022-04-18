@@ -7,17 +7,18 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   console.log('reducer', action.payload);
+  console.log('reducer sate', state?.cart);
   switch (action.type) {
     case ADD_TO_CART:
       return {
         ...state,
         cart: [action.payload, ...state.cart],
       };
-      case REMOVE_ITEM:
-        return {
-            ...state,
-            cart: state.cart.filter((item, i) => i !== action.payload.id),
-        }
+    case REMOVE_ITEM:
+      return {
+        ...state,
+        cart: state.cart.filter(obj => obj?.item?.id !== action?.payload),
+      };
     default:
       return state;
   }
