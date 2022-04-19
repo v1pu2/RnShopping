@@ -102,18 +102,15 @@ const Home = props => {
       <ProductCard
         catData={item?.item}
         onPress={() => {
-          const isFind = cartData.filter(
+          const isFind = cartData?.filter(
             obj => obj?.item?.id == item?.item?.id,
           );
           console.log(isFind);
           if (isFind?.length === 0) {
             const cartItem = {item: item?.item, qty: 1};
-            console.log('add to card', cartItem);
-             dispatch(addToCart(cartItem));
-          } else {
-            console.log('cartData in home', cartData);
+            // console.log('add to card', cartItem);
+            dispatch(addToCart(cartItem));
           }
-         
         }}
       />
     );

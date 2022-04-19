@@ -1,4 +1,4 @@
-import {ADD_TO_CART, REMOVE_ITEM} from '../actions/Types';
+import {ADD_QUANTITY,SUB_QUANTITY, ADD_TO_CART, REMOVE_ITEM} from '../actions/Types';
 
 const initialState = {
   cart: [],
@@ -6,8 +6,7 @@ const initialState = {
 };
 
 const cartReducer = (state = initialState, action) => {
-  console.log('reducer', action.payload);
-  console.log('reducer sate', state?.cart);
+
   switch (action.type) {
     case ADD_TO_CART:
       return {
@@ -18,6 +17,28 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: state.cart.filter(obj => obj?.item?.id !== action?.payload),
+      };
+    case ADD_QUANTITY:
+      const cart_state = state.cart.map(item =>
+        item?.item?.id === action?.payload
+          ? {...item, qty: item.qty + 1}
+          : item,
+      );
+      return {
+        ...state,
+        cart: cart_state,
+      };
+    case SUB_QUANTITY:
+      return {
+        ...state,
+        cart: state.cart.map(item =>
+            item?.item?.id === action?.payload
+            ? {
+                ...item,
+                qty: item.qty !== 1 ? item.qty - 1 : 1,
+              }
+            : item,
+        ),
       };
     default:
       return state;

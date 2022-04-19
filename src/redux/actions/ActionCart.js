@@ -1,14 +1,6 @@
-import { ADD_QUANTITY, ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, UPDATE_CART} from './Types';
+import {ADD_QUANTITY, ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY} from './Types';
 
-// export const updateCart = (data) => async dispatch => {
-//   dispatch({
-//     type: UPDATE_CART,
-//     payload: data,
-//   });
-// };
-//add cart action
 export const addToCart = data => {
-  console.log('add to cart call', data);
   return {
     type: ADD_TO_CART,
     payload: data,
