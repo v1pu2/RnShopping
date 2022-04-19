@@ -24,7 +24,7 @@ var styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 5,
-    marginVertical: 20,
+    marginBottom: 20,
   },
   buttonText: {
     fontSize: 16,
