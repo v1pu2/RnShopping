@@ -46,36 +46,36 @@ const Checkout = props => {
   return (
     <View style={styles.root}>
       <Text style={styles.txtHeader}>Checkout</Text>
-      <ScrollView>
-        <FlatList
-          data={cartData}
-          renderItem={item => renderItem(item?.item)}
-          keyExtractor={item => item?.id}
-        />
-      </ScrollView>
+
+      <FlatList
+        data={cartData}
+        renderItem={item => renderItem(item?.item)}
+        keyExtractor={item => item?.id}
+      />
+
       <View style={styles.bottomView}>
-        <View style={styles.grayView} />
-        <View style={styles.rowView}>
-          <Text style={styles.txtSubTotal}>SubTotal</Text>
-          <Text style={styles.totalVal}>SubTotal</Text>
-        </View>
-        <View style={styles.rowView}>
-          <Text style={styles.txtSubTotal}>Discount</Text>
-          <Text style={styles.totalVal}>5%</Text>
-        </View>
-        <View style={styles.rowView}>
-          <Text style={styles.txtSubTotal}>Shipping</Text>
-          <Text style={styles.totalVal}>$10.00</Text>
-        </View>
-        <View style={styles.grayView} />
-        <View style={styles.rowView}>
-          <Text style={styles.totalVal}>Total</Text>
-          <Text style={styles.totalVal}>Total</Text>
+        <View style={{flex: 1, backgroundColor: 'white',paddingBottom:20}}>
+          <View style={styles.grayView} />
+          <View style={styles.rowView}>
+            <Text style={styles.txtSubTotal}>SubTotal</Text>
+            <Text style={styles.totalVal}>SubTotal</Text>
+          </View>
+          <View style={styles.rowView}>
+            <Text style={styles.txtSubTotal}>Discount</Text>
+            <Text style={styles.totalVal}>5%</Text>
+          </View>
+          <View style={styles.rowView}>
+            <Text style={styles.txtSubTotal}>Shipping</Text>
+            <Text style={styles.totalVal}>$10.00</Text>
+          </View>
+          <View style={styles.grayView} />
+          <View style={styles.rowView}>
+            <Text style={styles.totalVal}>Total</Text>
+            <Text style={styles.totalVal}>Total</Text>
+          </View>
         </View>
         <View
           style={{
-            // justifyContent: 'center',
-            // alignItems: 'center',
             marginHorizontal: 20,
           }}>
           <LinearButton title="Back to Home" onPress={() => backToHome()} />
@@ -90,14 +90,17 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     padding: 20,
+    backgroundColor:'white',
+    paddingBottom:230
   },
   txtHeader: {
     fontSize: 30,
   },
   bottomView: {
     position: 'absolute',
-    bottom: 40,
+    bottom: 0,
     width: device_width,
+    flex: 1,
   },
   rowView: {
     flexDirection: 'row',
