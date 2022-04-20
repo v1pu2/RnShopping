@@ -61,7 +61,7 @@ const shoppingList = {
     {
       id: 22,
       product: 'Man Tshirt',
-      price: '35.00',
+      price: '35.46',
       img: 'https://images.unsplash.com/photo-1622470953794-aa9c70b0fb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHQlMjBzaGlydHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
     },
     {
