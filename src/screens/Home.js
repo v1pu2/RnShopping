@@ -88,7 +88,6 @@ const Home = props => {
   const cartData = useSelector(state => state?.CartReducer?.cart);
 
   useEffect(() => {
-    // console.log('shopping list', JSON.stringify(data?.categories));
     setCategoryData(data?.categories);
     setFeatured(data?.featured);
     setBestSell(data?.bestSell);
@@ -105,10 +104,9 @@ const Home = props => {
           const isFind = cartData?.filter(
             obj => obj?.item?.id == item?.item?.id,
           );
-          console.log(isFind);
+
           if (isFind?.length === 0) {
             const cartItem = {item: item?.item, qty: 1};
-            // console.log('add to card', cartItem);
             dispatch(addToCart(cartItem));
           }
         }}
@@ -121,14 +119,12 @@ const Home = props => {
       <ProductCard
         catData={item?.item}
         onPress={() => {
-          console.log('cart add')
           const isFind = cartData?.filter(
             obj => obj?.item?.id == item?.item?.id,
           );
-          console.log(isFind);
+
           if (isFind?.length === 0) {
             const cartItem = {item: item?.item, qty: 1};
-            // console.log('add to card', cartItem);
             dispatch(addToCart(cartItem));
           }
         }}

@@ -15,7 +15,6 @@ const Verify = props => {
     setOtp(val);
   };
   const onVerify = () => {
-    console.log('otp', typeof otp, '---', typeof getLoginData?.otp);
     let isVerify = otp == getLoginData?.otp;
     if (isVerify) {
       dispatch(verifyOtp());

@@ -12,7 +12,6 @@ import {
 const device_width = Dimensions.get('window').width;
 
 const CartCheckout = props => {
-  console.log('in cardchekcou', props?.cartItem);
   const prod_img = props?.cartItem?.item?.img;
   return (
     <View style={styles.cardView}>
