@@ -21,7 +21,7 @@ const authReducer = (state = initialState, action) => {
     case LOG_OUT:
       return {
         ...state,
-        isLogin: action.payload,
+        isVerified: action.payload,
       };
     default:
       return state;

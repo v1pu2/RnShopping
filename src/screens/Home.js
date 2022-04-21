@@ -1,12 +1,21 @@
 import React, {useState, useEffect} from 'react';
 
-import {Text, View, StyleSheet, FlatList, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Button,
+  ScrollView,
+} from 'react-native';
 import CategoryCard from '../components/CategoryCard';
 import ProductCard from '../components/ProductCard';
 import {useSelector, useDispatch} from 'react-redux';
 import {addToCart} from '../redux/actions/ActionCart';
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
+import {BackSvg} from '../assets/svgs/BackSvg';
+import { logOut } from '../redux/actions/ActionAuth';
 const shoppingList = {
   categories: [
     {
@@ -87,6 +96,14 @@ const Home = props => {
   const dispatch = useDispatch();
   const cartData = useSelector(state => state?.CartReducer?.cart);
 
+  React.useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <Button onPress={() => dispatch(logOut())} title="back" />
+      ),
+    });
+  }, [props.navigation]);
+
   useEffect(() => {
     setCategoryData(data?.categories);
     setFeatured(data?.featured);
@@ -141,11 +158,13 @@ const Home = props => {
             marginRight: 20,
           }}>
           <Text style={styles.txtHeader}>Categories</Text>
-          <Text
-            style={styles.txtHeader}
-            onPress={() => props.navigation.navigate('Checkout')}>
-            Cart
-          </Text>
+          {cartData?.length > 0 && (
+            <Text
+              style={styles.txtHeader}
+              onPress={() => props.navigation.navigate('Checkout')}>
+              Cart
+            </Text>
+          )}
         </View>
         <FlatList
           horizontal
@@ -176,6 +195,7 @@ export default Home;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: 'white',
   },
   txtHeader: {
     fontSize: 18,

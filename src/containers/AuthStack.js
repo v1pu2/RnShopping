@@ -16,10 +16,10 @@ export const AuthStack = () => {
       <Stack.Screen
         name="Welcome"
         component={Welcome}
-        options={{title: 'Welcome'}}
+        options={{title: ''}}
       />
-      <Stack.Screen name="Login" component={Login} options={{title: 'Login'}} />
-      <Stack.Screen name="Verify" component={Verify} options={{title: 'Verify'}} />
+      <Stack.Screen name="Login" component={Login} options={{title: ''}} />
+      <Stack.Screen name="Verify" component={Verify} options={{title: ''}} />
     </Stack.Navigator>
   );
 };
