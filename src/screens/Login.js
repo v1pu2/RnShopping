@@ -4,7 +4,8 @@ import {Text, View, StyleSheet, TextInput} from 'react-native';
 import Input from '../components/Input';
 import LinearButton from '../components/LinearButton';
 import {useDispatch} from 'react-redux';
-import { logIn } from '../redux/actions/ActionAuth';
+import {logIn} from '../redux/actions/ActionAuth';
+// import SendSMS from 'react-native-sms';
 
 const Login = props => {
   const [phone, setPhone] = useState('');
@@ -14,19 +15,40 @@ const Login = props => {
     setPhone(val);
   };
 
+  // const callSendSms = val => {
+  //   SendSMS.send(
+  //     {
+  //       body: val,
+  //       recipients: '+91' + phone,
+  //       successTypes: ['sent', 'queued'],
+  //       allowAndroidSendWithoutReadPermission: true,
+  //     },
+  //     (completed, cancelled, error) => {
+  //       console.log(
+  //         'SMS Callback: completed: ' +
+  //           completed +
+  //           ' cancelled: ' +
+  //           cancelled +
+  //           'error: ' +
+  //           error,
+  //       );
+  //     },
+  //   );
+  // };
   const onLogin = () => {
     var val = Math.floor(1000 + Math.random() * 9000);
-    console.log('login click',val);
-    const otpObj={otp:val}
+    console.log('login click', val);
+    const otpObj = {otp: val};
     console.log(otpObj);
     dispatch(logIn(otpObj));
+    // callSendSms(val);
     props.navigation.navigate('Verify');
   };
   return (
     <View style={styles.root}>
       <Text style={styles.txtLogin}>Login</Text>
       <Text style={styles.txtPhone}>Phone</Text>
-      <Input value={phone} onChangeText={(val) => onChange(val)} length={10} />
+      <Input value={phone} onChangeText={val => onChange(val)} length={10} />
       <LinearButton title="Login" onPress={() => onLogin()} />
     </View>
   );
