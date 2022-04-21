@@ -18,8 +18,21 @@ const Checkout = props => {
   const dispatch = useDispatch();
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(0);
+  const [timerCount, setTimer] = useState(20);
 
-  // console.log('cartData', cartData);
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setTimer(lastTimerCount => {
+        lastTimerCount <= 1 && clearInterval(interval);
+        return lastTimerCount - 1;
+      });
+    }, 1000); //each count lasts for a second
+    //cleanup the interval on complete
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   const onMinusClick = data => {
     if (data?.qty > 1) {
       dispatch(subtractQuantity(data?.item?.id));
@@ -33,6 +46,11 @@ const Checkout = props => {
   const onRemove = data => {
     dispatch(removeItem(data?.item?.id));
   };
+  useEffect(() => {
+    setTimeout(() => {
+      props.navigation.navigate('Home');
+    }, 20000);
+  }, []);
   useEffect(() => {
     const disc = 5;
     const shipping = 10;
@@ -64,7 +82,7 @@ const Checkout = props => {
   };
   return (
     <View style={styles.root}>
-      <Text style={styles.txtHeader}>Checkout</Text>
+      <Text style={styles.txtHeader}>Checkout {timerCount}</Text>
 
       <FlatList
         data={cartData}
