@@ -1,12 +1,21 @@
 import React, {useState, useEffect} from 'react';
 
-import {Text, View, StyleSheet, FlatList, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Button,
+  ScrollView,
+} from 'react-native';
 import CategoryCard from '../components/CategoryCard';
 import ProductCard from '../components/ProductCard';
 import {useSelector, useDispatch} from 'react-redux';
 import {addToCart} from '../redux/actions/ActionCart';
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
+import {BackSvg} from '../assets/svgs/BackSvg';
+import { logOut } from '../redux/actions/ActionAuth';
 const shoppingList = {
   categories: [
     {
@@ -61,7 +70,7 @@ const shoppingList = {
     {
       id: 22,
       product: 'Man Tshirt',
-      price: '35.00',
+      price: '35.46',
       img: 'https://images.unsplash.com/photo-1622470953794-aa9c70b0fb9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHQlMjBzaGlydHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
     },
     {
@@ -87,8 +96,15 @@ const Home = props => {
   const dispatch = useDispatch();
   const cartData = useSelector(state => state?.CartReducer?.cart);
 
+  React.useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <Button onPress={() => dispatch(logOut())} title="back" />
+      ),
+    });
+  }, [props.navigation]);
+
   useEffect(() => {
-    // console.log('shopping list', JSON.stringify(data?.categories));
     setCategoryData(data?.categories);
     setFeatured(data?.featured);
     setBestSell(data?.bestSell);
@@ -105,10 +121,9 @@ const Home = props => {
           const isFind = cartData?.filter(
             obj => obj?.item?.id == item?.item?.id,
           );
-          console.log(isFind);
+
           if (isFind?.length === 0) {
             const cartItem = {item: item?.item, qty: 1};
-            // console.log('add to card', cartItem);
             dispatch(addToCart(cartItem));
           }
         }}
@@ -121,14 +136,12 @@ const Home = props => {
       <ProductCard
         catData={item?.item}
         onPress={() => {
-          console.log('cart add')
           const isFind = cartData?.filter(
             obj => obj?.item?.id == item?.item?.id,
           );
-          console.log(isFind);
+
           if (isFind?.length === 0) {
             const cartItem = {item: item?.item, qty: 1};
-            // console.log('add to card', cartItem);
             dispatch(addToCart(cartItem));
           }
         }}
@@ -145,11 +158,13 @@ const Home = props => {
             marginRight: 20,
           }}>
           <Text style={styles.txtHeader}>Categories</Text>
-          <Text
-            style={styles.txtHeader}
-            onPress={() => props.navigation.navigate('Checkout')}>
-            Cart
-          </Text>
+          {cartData?.length > 0 && (
+            <Text
+              style={styles.txtHeader}
+              onPress={() => props.navigation.navigate('Checkout')}>
+              Cart
+            </Text>
+          )}
         </View>
         <FlatList
           horizontal
@@ -180,6 +195,7 @@ export default Home;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: 'white',
   },
   txtHeader: {
     fontSize: 18,

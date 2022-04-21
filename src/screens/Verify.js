@@ -3,8 +3,8 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import Input from '../components/Input';
 import LinearButton from '../components/LinearButton';
-import {useSelector,useDispatch} from 'react-redux';
-import { verifyOtp } from '../redux/actions/ActionAuth';
+import {useSelector, useDispatch} from 'react-redux';
+import {verifyOtp} from '../redux/actions/ActionAuth';
 
 const Verify = props => {
   const [otp, setOtp] = useState('');
@@ -15,19 +15,21 @@ const Verify = props => {
     setOtp(val);
   };
   const onVerify = () => {
-    console.log('otp',typeof(otp),'---',typeof(getLoginData?.otp));
     let isVerify = otp == getLoginData?.otp;
-    if(isVerify){
+    if (isVerify) {
       dispatch(verifyOtp());
     }
   };
+  useEffect(() => {
+    setOtp(getLoginData?.otp.toString());
+  }, [getLoginData]);
   return (
     <View style={styles.root}>
       <Text style={styles.txtLogin}>Verify</Text>
       <Text style={styles.txtPhone}>OTP</Text>
       <Input
         value={otp}
-        onChangeText={(val) => onChange(val)}
+        onChangeText={val => onChange(val)}
         length={4}
         placeholder="Enter OTP"
       />

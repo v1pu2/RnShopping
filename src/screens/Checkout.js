@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Text, View, StyleSheet, ScrollView, Dimensions} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
@@ -16,7 +16,23 @@ const device_width = Dimensions.get('window').width;
 const Checkout = props => {
   const cartData = useSelector(state => state?.CartReducer?.cart);
   const dispatch = useDispatch();
-  // console.log('cartData', cartData);
+  const [subTotal, setSubTotal] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [timerCount, setTimer] = useState(20);
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setTimer(lastTimerCount => {
+        lastTimerCount <= 1 && clearInterval(interval);
+        return lastTimerCount - 1;
+      });
+    }, 1000); //each count lasts for a second
+    //cleanup the interval on complete
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   const onMinusClick = data => {
     if (data?.qty > 1) {
       dispatch(subtractQuantity(data?.item?.id));
@@ -30,6 +46,27 @@ const Checkout = props => {
   const onRemove = data => {
     dispatch(removeItem(data?.item?.id));
   };
+  useEffect(() => {
+    setTimeout(() => {
+      props.navigation.navigate('Home');
+    }, 20000);
+  }, []);
+  useEffect(() => {
+    const disc = 5;
+    const shipping = 10;
+    var result = 0;
+    var grand_total = 0;
+
+    result = cartData.reduce(function (acc, obj) {
+      return acc + obj?.item?.price * obj.qty;
+    }, 0);
+    result = Number(result).toFixed(2);
+    grand_total = result - (result * disc) / 100 + shipping;
+    grand_total = Number(grand_total).toFixed(2);
+
+    setSubTotal(result);
+    setTotal(grand_total);
+  }, [cartData]);
   const renderItem = data => {
     return (
       <CartCheckout
@@ -45,7 +82,7 @@ const Checkout = props => {
   };
   return (
     <View style={styles.root}>
-      <Text style={styles.txtHeader}>Checkout</Text>
+      <Text style={styles.txtHeader}>Checkout {timerCount}</Text>
 
       <FlatList
         data={cartData}
@@ -54,11 +91,11 @@ const Checkout = props => {
       />
 
       <View style={styles.bottomView}>
-        <View style={{flex: 1, backgroundColor: 'white',paddingBottom:20}}>
+        <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 20}}>
           <View style={styles.grayView} />
           <View style={styles.rowView}>
             <Text style={styles.txtSubTotal}>SubTotal</Text>
-            <Text style={styles.totalVal}>SubTotal</Text>
+            <Text style={styles.totalVal}>${subTotal}</Text>
           </View>
           <View style={styles.rowView}>
             <Text style={styles.txtSubTotal}>Discount</Text>
@@ -71,7 +108,7 @@ const Checkout = props => {
           <View style={styles.grayView} />
           <View style={styles.rowView}>
             <Text style={styles.totalVal}>Total</Text>
-            <Text style={styles.totalVal}>Total</Text>
+            <Text style={styles.totalVal}>${total}</Text>
           </View>
         </View>
         <View
@@ -90,8 +127,8 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     padding: 20,
-    backgroundColor:'white',
-    paddingBottom:230
+    backgroundColor: 'white',
+    paddingBottom: 230,
   },
   txtHeader: {
     fontSize: 30,

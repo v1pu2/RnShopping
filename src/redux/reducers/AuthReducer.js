@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-  console.log('reducer', action.payload);
   switch (action.type) {
     case LOG_IN:
       return {
@@ -22,7 +21,7 @@ const authReducer = (state = initialState, action) => {
     case LOG_OUT:
       return {
         ...state,
-        isLogin: action.payload,
+        isVerified: action.payload,
       };
     default:
       return state;
